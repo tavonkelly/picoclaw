@@ -667,6 +667,20 @@ type PicoClientSettings struct {
 	ReadTimeout  int          `json:"read_timeout,omitempty"  yaml:"-"`
 }
 
+// GenericWSSettings configures the generic WebSocket server channel.
+// Connections are accepted on the shared gateway HTTP server at Path, and
+// authenticated via ?token=… query parameter (skipped when Token is empty).
+type GenericWSSettings struct {
+	Token        SecureString `json:"token,omitzero"          yaml:"token,omitempty" env:"PICOCLAW_CHANNELS_GENERIC_WS_TOKEN"`
+	Path         string       `json:"path,omitempty"          yaml:"-"               env:"PICOCLAW_CHANNELS_GENERIC_WS_PATH"`
+	PingInterval int          `json:"ping_interval,omitempty" yaml:"-"`
+	ReadTimeout  int          `json:"read_timeout,omitempty"  yaml:"-"`
+}
+
+func (c *GenericWSSettings) SetToken(token string) {
+	c.Token = *NewSecureString(token)
+}
+
 type IRCSettings struct {
 	Server           string              `json:"server"                     yaml:"-"                           env:"PICOCLAW_CHANNELS_IRC_SERVER"`
 	TLS              bool                `json:"tls"                        yaml:"-"                           env:"PICOCLAW_CHANNELS_IRC_TLS"`
