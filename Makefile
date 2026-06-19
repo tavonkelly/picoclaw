@@ -293,6 +293,10 @@ build-launcher-android-arm64:
 		LDFLAGS='$(LDFLAGS)'
 	@echo "Build complete: $(BUILD_DIR)/picoclaw-launcher-android-arm64"
 
+## build-launcher-linux-arm64: Build launcher for Linux ARM64 (pure-Go; no systray)
+build-launcher-linux-arm64:
+	@$(MAKE) build-launcher PLATFORM=linux ARCH=arm64 WEB_GO="CGO_ENABLED=0 go"
+
 ## build-android-bundle: Build core and launcher for all Android architectures and package as universal zip
 build-android-bundle: generate
 	@echo "Building core for all Android architectures..."
